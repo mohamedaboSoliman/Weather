@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>تطبيق الطقس المتقدم</title>
+      <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+      <!-- حاوية للأنيميشنات الديناميكية -->
+      <div id="weather-animation-container">
+            <!-- عناصر المطر -->
+            <div class="rain-container hidden">
+                  <div class="rain"></div>
+                  <div class="rain"></div>
+                  <div class="rain"></div>
+                  <div class="rain"></div>
+                  <div class="rain"></div>
+            </div>
+            <!-- عناصر الثلج -->
+            <div class="snow-container hidden">
+                  <div class="snow"></div>
+                  <div class="snow"></div>
+                  <div class="snow"></div>
+                  <div class="snow"></div>
+                  <div class="snow"></div>
+            </div>
+            <!-- عنصر السحابة -->
+            <div class="cloud hidden"></div>
+            <!-- عنصر الشمس -->
+            <div class="sun hidden"></div>
+      </div>
+
+      <div class="weather-app">
+            <header>
+                  <h1>تطبيق الطقس</h1>
+            </header>
+
+            <main>
+                  <div class="search-box">
+                        <input type="text" id="city-input" placeholder="أدخل اسم مدينة أو اختر من القائمة...">
+                        <select id="city-select">
+                              <option value="">اختر مدينة سريعاً...</option>
+                              <option value="Cairo">القاهرة</option>
+                              <option value="Alexandria">الإسكندرية</option>
+                              <option value="Giza">الجيزة</option>
+                              <option value="Tanta">طنطا</option>
+                              <option value="Riyadh">الرياض</option>
+                              <option value="Jeddah">جدة</option>
+                              <option value="Dubai">دبي</option>
+                              <option value="London">لندن</option>
+                              <option value="Paris">باريس</option>
+                              <option value="New York">نيويورك</option>
+                        </select>
+                        <button id="search-btn">بحث</button>
+                  </div>
+
+                  <div id="suggestions-container" class="suggestions-container hidden">
+                        <!-- الاقتراحات ستظهر هنا بواسطة JavaScript -->
+                  </div>
+
+                  <div id="weather-result" class="weather-result hidden">
+                        <!-- البيانات ستظهر هنا بواسطة JavaScript -->
+                        <h2 id="city-name"></h2>
+                        <img id="weather-icon" src="" alt="رمز الطقس">
+                        <p id="temperature"></p>
+                        <p id="description"></p>
+                  </div>
+
+                  <div id="error-message" class="error-message hidden">
+                        <!-- رسالة الخطأ ستظهر هنا -->
+                  </div>
+            </main>
+      </div>
+
+      <script src="script.js"></script>
+</body>
+
+</html>
