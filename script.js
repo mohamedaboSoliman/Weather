@@ -1,6 +1,6 @@
 // ملف script.js
 
-// 1. الحصول على العناصر من الـ HTML
+
 const cityInput = document.getElementById('city-input');
 const searchBtn = document.getElementById('search-btn');
 const citySelect = document.getElementById('city-select');
@@ -12,10 +12,10 @@ const temperature = document.getElementById('temperature');
 const description = document.getElementById('description');
 const errorMessage = document.getElementById('error-message');
 
-// 2. مفتاح الـ API الخاص بك
+
 const apiKey = '5f033e3605562dbed15cdbd56f5354e5';
 
-// قائمة بسيطة من المدن للاقتراحات التلقائية (يمكنك توسيعها)
+
 const cities = [
       "Cairo", "Alexandria", "Giza", "Shubra El Kheima", "Port Said", "Suez", "Luxor", "Aswan", "Tanta", "Ismailia", "Fayyum", "Zagazig", "Asyut",
       "Riyadh", "Jeddah", "Mecca", "Medina", "Dammam", "Khobar", "Tabuk",
@@ -26,9 +26,9 @@ const cities = [
       "Sydney", "Melbourne", "Brisbane"
 ];
 
-// --- الأحداث (Event Listeners) ---
 
-// 3. إضافة حدث النقر على زر البحث
+
+
 searchBtn.addEventListener('click', () => {
       const city = cityInput.value;
       if (city) {
@@ -38,14 +38,14 @@ searchBtn.addEventListener('click', () => {
       }
 });
 
-// إضافة حدث الضغط على زر Enter في حقل الإدخال
+
 cityInput.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') {
             searchBtn.click();
       }
 });
 
-// إضافة حدث للتغيير على القائمة المنسدلة
+
 citySelect.addEventListener('change', () => {
       const selectedCity = citySelect.value;
       if (selectedCity) {
@@ -54,7 +54,7 @@ citySelect.addEventListener('change', () => {
       }
 });
 
-// إضافة حدث الإدخال (input) لتفعيل الاقتراحات التلقائية
+
 cityInput.addEventListener('input', () => {
       const query = cityInput.value.toLowerCase();
       if (query.length < 2) {
@@ -65,7 +65,6 @@ cityInput.addEventListener('input', () => {
       displaySuggestions(filteredCities);
 });
 
-// إخفاء الاقتراحات عند النقر في أي مكان آخر في الصفحة
 document.addEventListener('click', (e) => {
       if (!e.target.closest('.search-box') && !e.target.closest('.suggestions-container')) {
             hideSuggestions();
@@ -73,23 +72,20 @@ document.addEventListener('click', (e) => {
 });
 
 
-// --- الدوال (Functions) ---
 
-// 4. الدالة الرئيسية لجلب بيانات الطقس (محدثة للبحث بالعربية والإنجليزية)
 async function getWeatherData(city) {
-      // محاولة البحث باللغة العربية أولاً
+  
       let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ar`;
 
       try {
             let response = await fetch(apiUrl);
 
-            // إذا فشل البحث بالعربية، جرب بالإنجليزية
+         
             if (!response.ok) {
                   console.log("البحث بالعربية فشل، جاري المحاولة بالإنجليزية...");
                   const englishApiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
                   response = await fetch(englishApiUrl);
 
-                  // إذا فشل البحث بالإنجليزية أيضاً، أطلق خطأ
                   if (!response.ok) {
                         throw new Error('لم يتم العثور على المدينة. يرجى التحقق من الإملاء.');
                   }
@@ -97,20 +93,19 @@ async function getWeatherData(city) {
 
             const data = await response.json();
             displayWeather(data);
-            hideSuggestions(); // إخفاء الاقتراحات بعد البحث الناجح
-
+            hideSuggestions();
       } catch (error) {
             showError(error.message);
-            hideSuggestions(); // إخفاء الاقتراحات في حالة الخطأ أيضاً
+            hideSuggestions(); 
       }
 }
 
-// 5. دالة لعرض البيانات في الصفحة
+
 function displayWeather(data) {
       cityName.textContent = data.name;
       temperature.textContent = `${Math.round(data.main.temp)}°C`;
 
-      // استدعاء دالة الأنيميشن هنا
+  
       setWeatherAnimation(data.weather[0].description);
 
       description.textContent = data.weather[0].description;
@@ -123,14 +118,14 @@ function displayWeather(data) {
       errorMessage.classList.add('hidden');
 }
 
-// 6. دالة لعرض رسالة الخطأ
+
 function showError(message) {
       errorMessage.textContent = message;
       errorMessage.classList.remove('hidden');
       weatherResult.classList.add('hidden');
 }
 
-// 7. دالة لعرض الاقتراحات التلقائية
+
 function displaySuggestions(suggestions) {
       suggestionsContainer.innerHTML = ''; // مسح الاقتراحات القديمة
 
